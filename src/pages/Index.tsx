@@ -1,11 +1,8 @@
 
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import { projects } from '@/data/projects';
-import ProjectCard from '@/components/ProjectCard';
+import { ArrowRight } from 'lucide-react';
 
 const Index = () => {
   const [loaded, setLoaded] = useState(false);
@@ -14,99 +11,64 @@ const Index = () => {
     setLoaded(true);
   }, []);
 
-  const featuredProjects = projects.slice(0, 4);
-
   return (
     <div className="flex flex-col min-h-screen bg-black text-white">
       <Navbar />
       
-      <main className="flex-1">
-        {/* Hero Section */}
-        <section className="relative pt-32 pb-24 md:pt-44 md:pb-32 px-6 md:px-10">
-          <div className="max-w-7xl mx-auto">
-            <span className={`inline-block text-sm text-gray-400 font-medium tracking-wider mb-5 opacity-0 ${loaded ? 'animate-slide-down' : ''}`}>
-              PORTFOLIO
-            </span>
-            
-            <h1 className={`text-4xl md:text-6xl lg:text-7xl font-bold leading-tight md:leading-tight max-w-4xl opacity-0 ${loaded ? 'animate-slide-down' : ''}`} style={{ animationDelay: '0.1s' }}>
-              Creating meaningful design for digital experiences
-            </h1>
-            
-            <p className={`mt-6 text-lg text-gray-400 max-w-2xl opacity-0 ${loaded ? 'animate-slide-down' : ''}`} style={{ animationDelay: '0.2s' }}>
-              A curated collection of graphic design projects showcasing brand identity, editorial layout, packaging design, and digital experiences.
-            </p>
-            
-            <div className={`mt-10 opacity-0 ${loaded ? 'animate-slide-down' : ''}`} style={{ animationDelay: '0.3s' }}>
-              <Link 
-                to="/projects" 
-                className="inline-flex items-center gap-2 bg-white text-black px-6 py-3 rounded-full transition-all hover:gap-3"
-              >
-                View Projects <ArrowRight size={16} />
-              </Link>
-            </div>
-          </div>
-        </section>
-        
-        {/* Featured Projects */}
-        <section className="py-20 px-6 md:px-10 bg-gray-900">
-          <div className="max-w-7xl mx-auto">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-12">
-              <h2 className={`text-2xl md:text-3xl font-medium opacity-0 ${loaded ? 'animate-slide-up' : ''}`} style={{ animationDelay: '0.4s' }}>
-                Featured Projects
-              </h2>
-              
-              <Link 
-                to="/projects" 
-                className={`text-sm flex items-center gap-2 hover:gap-3 text-gray-300 transition-all opacity-0 ${loaded ? 'animate-slide-up' : ''}`} 
-                style={{ animationDelay: '0.5s' }}
-              >
-                View All Projects <ArrowRight size={14} />
-              </Link>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
-              {featuredProjects.map((project, index) => (
-                <ProjectCard key={project.id} project={project} index={index} />
-              ))}
-            </div>
-          </div>
-        </section>
-        
-        {/* About Section */}
-        <section className="py-24 px-6 md:px-10">
-          <div className="max-w-7xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20">
-              <div>
-                <span className="inline-block text-sm text-gray-400 font-medium tracking-wider mb-4">
-                  ABOUT
-                </span>
+      <main className="flex-1 flex flex-col">
+        {/* Hero Section with image on the right and text on the left */}
+        <section className="flex flex-col lg:flex-row w-full min-h-screen">
+          {/* Left side content */}
+          <div className="w-full lg:w-1/2 h-full flex flex-col justify-center px-6 md:px-10 lg:px-16 py-32">
+            <div className="max-w-xl">
+              <div className={`space-y-6 ${loaded ? 'animate-slide-down' : 'opacity-0'}`}>
+                <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-light leading-tight tracking-tighter">
+                  Portfolio
+                </h1>
                 
-                <h2 className="text-3xl md:text-4xl font-medium leading-tight mb-6">
-                  Designer focused on creating meaningful experiences
-                </h2>
+                <div className="space-y-8 mt-8">
+                  <div>
+                    <h2 className="text-lg md:text-xl font-light">Graphic Design</h2>
+                    <p className="text-sm text-gray-400 mt-1">
+                      A collection of selected projects showcasing my approach to design challenges across various mediums and contexts.
+                    </p>
+                  </div>
+                  
+                  <div>
+                    <h2 className="text-lg md:text-xl font-light">Photography</h2>
+                    <p className="text-sm text-gray-400 mt-1">
+                      Capturing moments and perspectives through the lens, with a focus on minimalism and emotional storytelling.
+                    </p>
+                  </div>
+                  
+                  <div>
+                    <h2 className="text-lg md:text-xl font-light">UI/UX Design</h2>
+                    <p className="text-sm text-gray-400 mt-1">
+                      Creating intuitive and aesthetically pleasing digital experiences that prioritize user needs and business goals.
+                    </p>
+                  </div>
+                </div>
                 
-                <Link 
-                  to="/projects" 
-                  className="inline-flex items-center gap-2 mt-4 text-sm hover:gap-3 transition-all relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1px] after:bg-current"
-                >
-                  Explore Projects <ArrowRight size={14} />
-                </Link>
-              </div>
-              
-              <div className="space-y-6 text-gray-400">
-                <p>
-                  I'm a graphic designer specializing in creating clean, functional, and visually compelling solutions for brand identity, editorial design, and digital experiences.
-                </p>
-                
-                <p>
-                  My approach combines visual aesthetics with strategic thinking to solve complex design challenges. Each project is an opportunity to create something unique that resonates with the intended audience.
-                </p>
-                
-                <p>
-                  With attention to detail and a passion for excellence, I strive to deliver work that not only looks beautiful but also achieves strategic objectives.
-                </p>
+                <div className="pt-8">
+                  <a 
+                    href="mailto:contact@example.com" 
+                    className="inline-flex items-center text-sm text-gray-300 hover:text-white gap-2 transition-all hover:gap-3"
+                  >
+                    Contact <ArrowRight size={14} />
+                  </a>
+                </div>
               </div>
             </div>
+          </div>
+          
+          {/* Right side image */}
+          <div className="w-full lg:w-1/2 h-screen relative">
+            <div className={`absolute inset-0 bg-gray-900 ${loaded ? 'animate-fade-out' : ''}`}></div>
+            <img
+              src="https://images.unsplash.com/photo-1543002588-bfa74002ed7e?q=80&w=2070&auto=format&fit=crop"
+              alt="Portfolio hero image"
+              className={`w-full h-full object-cover ${loaded ? 'animate-fade-in' : 'opacity-0'}`}
+            />
           </div>
         </section>
       </main>
