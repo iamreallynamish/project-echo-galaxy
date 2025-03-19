@@ -64,26 +64,20 @@ const Index = () => {
                 <div className="space-y-6 mt-8">
                   <div className="border-t border-white/10 pt-4">
                     <h2 className="text-sm font-mono mb-3 flex items-center gap-2">
-                      <Info size={14} /> EXIF DATA
+                      <Info size={14} /> PROJECT DETAILS
                     </h2>
                     <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-xs text-gray-400">
-                      <div>Camera</div>
-                      <div className="text-white">{selectedMedia.exif.camera}</div>
-                      
-                      <div>Lens</div>
-                      <div className="text-white">{selectedMedia.exif.lens}</div>
-                      
-                      <div>Focal Length</div>
-                      <div className="text-white">{selectedMedia.exif.focalLength}</div>
-                      
-                      <div>Aperture</div>
-                      <div className="text-white">{selectedMedia.exif.aperture}</div>
-                      
-                      <div>Shutter Speed</div>
-                      <div className="text-white">{selectedMedia.exif.shutterSpeed}</div>
-                      
-                      <div>ISO</div>
-                      <div className="text-white">{selectedMedia.exif.iso}</div>
+                      <div>Software</div>
+                      <div className="text-white">{selectedMedia.projectDetails.software}</div>
+                    </div>
+                  </div>
+                  
+                  <div className="border-t border-white/10 pt-4">
+                    <h2 className="text-sm font-mono mb-3 flex items-center gap-2">
+                      <Info size={14} /> ABOUT THE PROJECT
+                    </h2>
+                    <div className="text-xs text-white">
+                      {selectedMedia.aboutProject}
                     </div>
                   </div>
                   

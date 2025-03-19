@@ -5,14 +5,11 @@ export interface MediaItem {
   date: string;
   description: string;
   imageUrl: string;
-  exif: {
-    camera: string;
-    lens: string;
-    focalLength: string;
-    aperture: string;
-    shutterSpeed: string;
-    iso: number;
+  projectDetails: {
+    software: string;
+    // Removed other EXIF fields
   };
+  aboutProject: string;
   tags: string[];
 }
 
@@ -23,14 +20,10 @@ export const mediaItems: MediaItem[] = [
     date: "2023-06-15",
     description: "Early morning light through urban architecture creates dramatic shadows and highlights.",
     imageUrl: "https://images.unsplash.com/photo-1543002588-bfa74002ed7e?q=80&w=2070&auto=format&fit=crop",
-    exif: {
-      camera: "FUJIFILM X-T4",
-      lens: "XF 23mm f/1.4 R LM WR",
-      focalLength: "23mm",
-      aperture: "f/5.6",
-      shutterSpeed: "1/250s",
-      iso: 160
+    projectDetails: {
+      software: "Adobe Photoshop CC 2023",
     },
+    aboutProject: "This project explores the interplay of light and shadow in urban environments. The early morning sun creates dramatic contrasts that highlight architectural elements often overlooked during regular daylight hours.",
     tags: ["architecture", "morning", "urban", "light"]
   },
   {
@@ -39,14 +32,10 @@ export const mediaItems: MediaItem[] = [
     date: "2023-07-22",
     description: "Geometric patterns in contemporary architecture with strong contrast.",
     imageUrl: "https://images.unsplash.com/photo-1517935706615-2717063c2225?q=80&w=2071&auto=format&fit=crop",
-    exif: {
-      camera: "FUJIFILM X-T4",
-      lens: "XF 16-55mm f/2.8 R LM WR",
-      focalLength: "35mm",
-      aperture: "f/8.0",
-      shutterSpeed: "1/125s",
-      iso: 400
+    projectDetails: {
+      software: "Adobe Lightroom & Photoshop",
     },
+    aboutProject: "Urban Geometry focuses on the abstract patterns found within modern city architecture. The high contrast processing emphasizes the geometric shapes that form the visual language of contemporary urban design.",
     tags: ["architecture", "geometry", "urban", "contrast"]
   },
   {
@@ -55,14 +44,10 @@ export const mediaItems: MediaItem[] = [
     date: "2023-05-03",
     description: "Minimalist landscape of desert formations at dusk.",
     imageUrl: "https://images.unsplash.com/photo-1509316785289-025f5b846b35?q=80&w=2076&auto=format&fit=crop",
-    exif: {
-      camera: "FUJIFILM X-T4",
-      lens: "XF 10-24mm f/4 R OIS WR",
-      focalLength: "14mm",
-      aperture: "f/11",
-      shutterSpeed: "1/60s",
-      iso: 200
+    projectDetails: {
+      software: "Capture One Pro & Affinity Photo",
     },
+    aboutProject: "Desert Vista captures the serene simplicity of arid landscapes as daylight fades. The minimalist approach highlights the subtle textures and shapes that define these seemingly barren but visually rich environments.",
     tags: ["landscape", "desert", "minimalist", "dusk"]
   }
 ];
