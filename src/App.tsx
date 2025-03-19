@@ -15,12 +15,11 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <div className="bg-black text-white min-h-screen">
+      <div className="bg-black text-white min-h-screen font-mono">
         <BrowserRouter>
           <TransitionEffect>
             <Routes>
               <Route path="/" element={<Index />} />
-              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
           </TransitionEffect>

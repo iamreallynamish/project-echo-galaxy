@@ -21,7 +21,7 @@ export default {
 		extend: {
 			fontFamily: {
 				sans: ['SF Pro Display', 'Inter', 'system-ui', 'sans-serif'],
-				mono: ['SF Mono', 'monospace'],
+				mono: ['Space Mono', 'IBM Plex Mono', 'SF Mono', 'monospace'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',
