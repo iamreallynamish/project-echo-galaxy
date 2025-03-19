@@ -1,108 +1,108 @@
 
 import { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Calendar } from 'lucide-react';
+import { useParams, Link } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { projects } from '@/data/projects';
 
 const ProjectDetail = () => {
   const { id } = useParams<{ id: string }>();
-  const navigate = useNavigate();
   const [loaded, setLoaded] = useState(false);
-  const [imageLoaded, setImageLoaded] = useState(false);
-  
   const project = projects.find(p => p.id === id);
-  
+
   useEffect(() => {
-    if (!project) {
-      navigate('/projects', { replace: true });
-      return;
-    }
-    
     setLoaded(true);
-    
-    // Scroll to top
     window.scrollTo(0, 0);
-  }, [project, navigate]);
-  
-  if (!project) return null;
-  
+  }, [id]);
+
+  if (!project) {
+    return (
+      <div className="flex min-h-screen flex-col items-center justify-center bg-black text-white p-6">
+        <h1 className="text-3xl font-bold mb-6">Project Not Found</h1>
+        <p className="mb-8 text-center">The project you're looking for doesn't exist or has been removed.</p>
+        <Link 
+          to="/projects" 
+          className="flex items-center gap-2 text-sm border border-white px-4 py-2"
+        >
+          <ArrowLeft size={16} /> Back to Projects
+        </Link>
+      </div>
+    );
+  }
+
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-black text-white">
       <Navbar />
       
-      <main className="flex-1 pt-32 pb-24 px-6 md:px-10">
-        <div className="max-w-5xl mx-auto">
-          {/* Back Button */}
-          <button
-            onClick={() => navigate(-1)}
-            className={`flex items-center gap-2 text-sm mb-10 hover:text-primary transition-colors opacity-0 ${loaded ? 'animate-fade-in' : ''}`}
-          >
-            <ArrowLeft size={16} /> Back to Projects
-          </button>
+      <main className="flex-1 pt-32 pb-24">
+        {/* Project Header */}
+        <div className="relative w-full h-[60vh] overflow-hidden">
+          <div className="absolute inset-0 bg-black/40 z-10" />
+          <img 
+            src={project.thumbnail} 
+            alt={project.title}
+            className="w-full h-full object-cover object-center"
+          />
           
-          {/* Project Header */}
-          <div className="mb-12">
-            <span className={`inline-block text-sm text-muted-foreground font-medium tracking-wider mb-3 opacity-0 ${loaded ? 'animate-slide-down' : ''}`} style={{ animationDelay: '0.1s' }}>
-              {project.categories.join(' · ')}
-            </span>
-            
-            <h1 className={`text-4xl md:text-5xl lg:text-6xl font-medium leading-tight mb-6 opacity-0 ${loaded ? 'animate-slide-down' : ''}`} style={{ animationDelay: '0.2s' }}>
-              {project.title}
-            </h1>
-            
-            <div className={`flex items-center gap-2 text-sm text-muted-foreground opacity-0 ${loaded ? 'animate-slide-down' : ''}`} style={{ animationDelay: '0.3s' }}>
-              <Calendar size={14} />
-              <span>{project.date}</span>
-            </div>
-          </div>
-          
-          {/* Project Image */}
-          <div className={`relative aspect-video rounded-lg overflow-hidden mb-16 opacity-0 ${loaded ? 'animate-slide-up' : ''}`} style={{ animationDelay: '0.4s' }}>
-            <div className={`absolute inset-0 bg-blue-50/30 backdrop-blur-sm ${imageLoaded ? 'opacity-0' : 'opacity-100'} transition-opacity duration-500`} />
-            <img
-              src={project.thumbnail}
-              alt={project.title}
-              className="w-full h-full object-cover"
-              onLoad={() => setImageLoaded(true)}
-            />
-          </div>
-          
-          {/* Project Description */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-16">
-            <div className="md:col-span-2">
-              <h2 className={`text-2xl font-medium mb-5 opacity-0 ${loaded ? 'animate-slide-up' : ''}`} style={{ animationDelay: '0.5s' }}>
-                Overview
-              </h2>
-              
-              <div className={`prose prose-neutral max-w-none text-muted-foreground opacity-0 ${loaded ? 'animate-slide-up' : ''}`} style={{ animationDelay: '0.6s' }}>
-                <p className="text-lg mb-6">{project.description}</p>
-                <p>{project.details}</p>
-              </div>
-            </div>
-            
-            <div className="md:col-span-1">
-              <h3 className={`text-xl font-medium mb-5 opacity-0 ${loaded ? 'animate-slide-up' : ''}`} style={{ animationDelay: '0.7s' }}>
-                Project Details
-              </h3>
-              
-              <div className={`space-y-6 opacity-0 ${loaded ? 'animate-slide-up' : ''}`} style={{ animationDelay: '0.8s' }}>
-                <div>
-                  <h4 className="text-sm font-medium mb-2">Date</h4>
-                  <p className="text-muted-foreground">{project.date}</p>
+          <div className="absolute left-0 top-0 w-full h-full z-20 flex flex-col justify-end p-6 md:p-10">
+            <div className="max-w-7xl mx-auto w-full">
+              <div className={`opacity-0 ${loaded ? 'animate-slide-up' : ''}`}>
+                <div className="flex flex-wrap gap-3 mb-4">
+                  {project.categories.map((category, index) => (
+                    <span 
+                      key={index}
+                      className="text-xs uppercase tracking-wider py-1 px-2 border border-white/30 backdrop-blur-sm text-white/80"
+                    >
+                      {category}
+                    </span>
+                  ))}
                 </div>
                 
-                <div>
-                  <h4 className="text-sm font-medium mb-2">Categories</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {project.categories.map((category) => (
-                      <span key={category} className="text-xs bg-muted py-1 px-2 rounded-full">
-                        {category}
-                      </span>
-                    ))}
+                <h1 className="text-3xl md:text-5xl font-bold mb-2">
+                  {project.title.toUpperCase()} #{project.id}
+                </h1>
+                
+                <p className="text-lg md:text-xl mb-6 md:mb-10 max-w-3xl text-gray-300">
+                  {project.description}
+                </p>
+                
+                <div className="flex flex-col md:flex-row gap-6 text-sm">
+                  <div>
+                    <span className="block text-gray-400 mb-1">Date</span>
+                    <span>{project.date}</span>
+                  </div>
+                  
+                  <div>
+                    <span className="block text-gray-400 mb-1">Project ID</span>
+                    <span>#{project.id}</span>
+                  </div>
+                  
+                  <div>
+                    <span className="block text-gray-400 mb-1">Category</span>
+                    <span>{project.categories[0]}</span>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        {/* Project Content */}
+        <div className="max-w-7xl mx-auto px-6 md:px-10 mt-20">
+          <div className={`opacity-0 ${loaded ? 'animate-fade-in' : ''}`} style={{ animationDelay: '0.3s' }}>
+            <div className="prose prose-lg prose-invert max-w-none">
+              <p className="text-xl">{project.details}</p>
+              
+              <div className="my-20 h-[1px] w-full bg-gray-800" />
+              
+              <div className="mt-12">
+                <Link 
+                  to="/projects" 
+                  className="inline-flex items-center gap-2 text-sm hover:gap-3 transition-all"
+                >
+                  <ArrowLeft size={16} /> Back to Projects
+                </Link>
               </div>
             </div>
           </div>

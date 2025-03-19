@@ -14,17 +14,17 @@ const Index = () => {
     setLoaded(true);
   }, []);
 
-  const featuredProjects = projects.slice(0, 3);
+  const featuredProjects = projects.slice(0, 4);
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-black text-white">
       <Navbar />
       
       <main className="flex-1">
         {/* Hero Section */}
         <section className="relative pt-32 pb-24 md:pt-44 md:pb-32 px-6 md:px-10">
           <div className="max-w-7xl mx-auto">
-            <span className={`inline-block text-sm text-muted-foreground font-medium tracking-wider mb-5 opacity-0 ${loaded ? 'animate-slide-down' : ''}`}>
+            <span className={`inline-block text-sm text-gray-400 font-medium tracking-wider mb-5 opacity-0 ${loaded ? 'animate-slide-down' : ''}`}>
               PORTFOLIO
             </span>
             
@@ -32,14 +32,14 @@ const Index = () => {
               Creating meaningful design for digital experiences
             </h1>
             
-            <p className={`mt-6 text-lg text-muted-foreground max-w-2xl opacity-0 ${loaded ? 'animate-slide-down' : ''}`} style={{ animationDelay: '0.2s' }}>
+            <p className={`mt-6 text-lg text-gray-400 max-w-2xl opacity-0 ${loaded ? 'animate-slide-down' : ''}`} style={{ animationDelay: '0.2s' }}>
               A curated collection of graphic design projects showcasing brand identity, editorial layout, packaging design, and digital experiences.
             </p>
             
             <div className={`mt-10 opacity-0 ${loaded ? 'animate-slide-down' : ''}`} style={{ animationDelay: '0.3s' }}>
               <Link 
                 to="/projects" 
-                className="inline-flex items-center gap-2 bg-foreground text-background px-6 py-3 rounded-full transition-all hover:gap-3"
+                className="inline-flex items-center gap-2 bg-white text-black px-6 py-3 rounded-full transition-all hover:gap-3"
               >
                 View Projects <ArrowRight size={16} />
               </Link>
@@ -48,7 +48,7 @@ const Index = () => {
         </section>
         
         {/* Featured Projects */}
-        <section className="py-20 px-6 md:px-10 bg-secondary/50">
+        <section className="py-20 px-6 md:px-10 bg-gray-900">
           <div className="max-w-7xl mx-auto">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-12">
               <h2 className={`text-2xl md:text-3xl font-medium opacity-0 ${loaded ? 'animate-slide-up' : ''}`} style={{ animationDelay: '0.4s' }}>
@@ -57,14 +57,14 @@ const Index = () => {
               
               <Link 
                 to="/projects" 
-                className={`text-sm flex items-center gap-2 hover:gap-3 transition-all opacity-0 ${loaded ? 'animate-slide-up' : ''}`} 
+                className={`text-sm flex items-center gap-2 hover:gap-3 text-gray-300 transition-all opacity-0 ${loaded ? 'animate-slide-up' : ''}`} 
                 style={{ animationDelay: '0.5s' }}
               >
                 View All Projects <ArrowRight size={14} />
               </Link>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
               {featuredProjects.map((project, index) => (
                 <ProjectCard key={project.id} project={project} index={index} />
               ))}
@@ -77,7 +77,7 @@ const Index = () => {
           <div className="max-w-7xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20">
               <div>
-                <span className="inline-block text-sm text-muted-foreground font-medium tracking-wider mb-4">
+                <span className="inline-block text-sm text-gray-400 font-medium tracking-wider mb-4">
                   ABOUT
                 </span>
                 
@@ -93,7 +93,7 @@ const Index = () => {
                 </Link>
               </div>
               
-              <div className="space-y-6 text-muted-foreground">
+              <div className="space-y-6 text-gray-400">
                 <p>
                   I'm a graphic designer specializing in creating clean, functional, and visually compelling solutions for brand identity, editorial design, and digital experiences.
                 </p>

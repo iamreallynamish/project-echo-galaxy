@@ -24,13 +24,13 @@ const Projects = () => {
     : projects.filter(project => project.categories.includes(filter));
   
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-black text-white">
       <Navbar />
       
       <main className="flex-1 pt-32 pb-24 px-6 md:px-10">
         <div className="max-w-7xl mx-auto">
           <div className="mb-16">
-            <span className={`inline-block text-sm text-muted-foreground font-medium tracking-wider mb-4 opacity-0 ${loaded ? 'animate-slide-down' : ''}`}>
+            <span className={`inline-block text-sm text-gray-400 font-medium tracking-wider mb-4 opacity-0 ${loaded ? 'animate-slide-down' : ''}`}>
               PROJECTS
             </span>
             
@@ -38,13 +38,13 @@ const Projects = () => {
               Graphic Design Portfolio
             </h1>
             
-            <p className={`mt-4 text-lg text-muted-foreground max-w-2xl opacity-0 ${loaded ? 'animate-slide-down' : ''}`} style={{ animationDelay: '0.2s' }}>
+            <p className={`mt-4 text-lg text-gray-400 max-w-2xl opacity-0 ${loaded ? 'animate-slide-down' : ''}`} style={{ animationDelay: '0.2s' }}>
               A collection of selected projects showcasing my approach to design challenges across various mediums and contexts.
             </p>
           </div>
           
           {/* Category Filter */}
-          <div className={`mb-12 border-b border-border/50 pb-4 overflow-x-auto opacity-0 ${loaded ? 'animate-slide-down' : ''}`} style={{ animationDelay: '0.3s' }}>
+          <div className={`mb-12 border-b border-gray-800 pb-4 overflow-x-auto opacity-0 ${loaded ? 'animate-slide-down' : ''}`} style={{ animationDelay: '0.3s' }}>
             <div className="flex space-x-6 min-w-max">
               {categories.map((category) => (
                 <button
@@ -52,8 +52,8 @@ const Projects = () => {
                   onClick={() => setFilter(category)}
                   className={`text-sm py-2 relative whitespace-nowrap transition-colors ${
                     filter === category 
-                      ? 'text-foreground after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1px] after:bg-foreground' 
-                      : 'text-muted-foreground hover:text-foreground'
+                      ? 'text-white after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1px] after:bg-white' 
+                      : 'text-gray-400 hover:text-gray-200'
                   }`}
                 >
                   {category}
@@ -63,7 +63,7 @@ const Projects = () => {
           </div>
           
           {/* Projects Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
             {filteredProjects.map((project, index) => (
               <ProjectCard key={project.id} project={project} index={index} />
             ))}
@@ -71,7 +71,7 @@ const Projects = () => {
           
           {filteredProjects.length === 0 && (
             <div className="text-center py-20">
-              <p className="text-lg text-muted-foreground">No projects found in this category.</p>
+              <p className="text-lg text-gray-400">No projects found in this category.</p>
             </div>
           )}
         </div>
