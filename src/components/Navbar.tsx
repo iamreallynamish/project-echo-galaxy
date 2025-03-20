@@ -1,26 +1,41 @@
 
-import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useState, useEffect, RefObject } from 'react';
 import { cn } from '@/lib/utils';
 import { Search } from 'lucide-react';
 
-const Navbar = () => {
+interface NavbarProps {
+  homeRef: RefObject<HTMLDivElement>;
+  aboutRef: RefObject<HTMLDivElement>;
+  workRef: RefObject<HTMLDivElement>;
+}
+
+const Navbar = ({ homeRef, aboutRef, workRef }: NavbarProps) => {
   const [scrolled, setScrolled] = useState(false);
-  const location = useLocation();
+  const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
+      
+      // Determine active section based on scroll position
+      const scrollPosition = window.scrollY + 100; // Offset for better detection
+      
+      if (workRef.current && scrollPosition >= workRef.current.offsetTop) {
+        setActiveSection('work');
+      } else if (aboutRef.current && scrollPosition >= aboutRef.current.offsetTop) {
+        setActiveSection('about');
+      } else {
+        setActiveSection('home');
+      }
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [aboutRef, homeRef, workRef]);
 
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({
+  const scrollToSection = (ref: RefObject<HTMLDivElement>) => {
+    if (ref.current) {
+      ref.current.scrollIntoView({
         behavior: 'smooth',
         block: 'start',
       });
@@ -35,42 +50,42 @@ const Navbar = () => {
       )}
     >
       <div className="max-w-screen-xl mx-auto flex items-center justify-between">
-        <Link 
-          to="/" 
+        <button 
+          onClick={() => scrollToSection(homeRef)} 
           className="text-base font-mono tracking-tighter hover:opacity-80 transition-opacity text-black"
         >
           NAMISH//:
-        </Link>
+        </button>
         
         <div className="flex items-center space-x-6">
           <nav className="hidden md:flex items-center space-x-6">
-            <Link 
-              to="/" 
+            <button 
+              onClick={() => scrollToSection(homeRef)} 
               className={cn(
                 "text-sm font-mono text-black hover:opacity-80 transition-opacity",
-                location.pathname === "/" && "font-bold"
+                activeSection === "home" && "font-bold"
               )}
             >
               HOME
-            </Link>
-            <Link 
-              to="/about" 
+            </button>
+            <button 
+              onClick={() => scrollToSection(aboutRef)} 
               className={cn(
                 "text-sm font-mono text-black hover:opacity-80 transition-opacity",
-                location.pathname === "/about" && "font-bold"
+                activeSection === "about" && "font-bold"
               )}
             >
               ABOUT
-            </Link>
-            <Link 
-              to="/work" 
+            </button>
+            <button 
+              onClick={() => scrollToSection(workRef)} 
               className={cn(
                 "text-sm font-mono text-black hover:opacity-80 transition-opacity",
-                location.pathname === "/work" && "font-bold"
+                activeSection === "work" && "font-bold"
               )}
             >
               WORK
-            </Link>
+            </button>
           </nav>
           
           <button className="p-1 hover:text-gray-800 transition-colors text-black">
