@@ -29,7 +29,7 @@ const Navbar = () => {
           to="/" 
           className="text-base font-mono tracking-tighter hover:opacity-80 transition-opacity text-black"
         >
-          MEDIA/ &gt; NAMISH//:
+          NAMISH//:
         </Link>
         
         <div className="flex items-center space-x-6">

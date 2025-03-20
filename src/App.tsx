@@ -5,6 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import TransitionEffect from "./components/TransitionEffect";
+import Home from "./pages/Home";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import Work from "./pages/Work";
@@ -21,9 +22,10 @@ const App = () => (
         <BrowserRouter>
           <TransitionEffect>
             <Routes>
-              <Route path="/" element={<Index />} />
+              <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
               <Route path="/work" element={<Work />} />
+              <Route path="/project/:id" element={<Index />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </TransitionEffect>

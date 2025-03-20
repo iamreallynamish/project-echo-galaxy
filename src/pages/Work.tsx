@@ -1,5 +1,6 @@
 
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { mediaItems } from '@/data/MediaData';
@@ -24,7 +25,11 @@ const Work = () => {
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {mediaItems.map((item) => (
-                <div key={item.id} className="group cursor-pointer hover-lift">
+                <Link 
+                  to={`/project/${item.id}`} 
+                  key={item.id} 
+                  className="group cursor-pointer hover-lift"
+                >
                   <div className="aspect-square overflow-hidden">
                     <img 
                       src={item.imageUrl} 
@@ -36,7 +41,7 @@ const Work = () => {
                     <h3 className="text-sm font-mono">{item.title}</h3>
                     <p className="text-xs mt-1 text-black/70">{item.description}</p>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           </div>
