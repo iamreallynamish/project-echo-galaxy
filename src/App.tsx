@@ -6,6 +6,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import TransitionEffect from "./components/TransitionEffect";
 import Index from "./pages/Index";
+import About from "./pages/About";
+import Work from "./pages/Work";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -15,11 +17,13 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <div className="bg-black text-white min-h-screen font-mono">
+      <div className="bg-[#FF0031] text-black min-h-screen font-mono">
         <BrowserRouter>
           <TransitionEffect>
             <Routes>
               <Route path="/" element={<Index />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/work" element={<Work />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </TransitionEffect>

@@ -2,13 +2,11 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
-import { Search, Grid, Menu } from 'lucide-react';
-import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
+import { Search } from 'lucide-react';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
-  const [view, setView] = useState('grid');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,28 +21,49 @@ const Navbar = () => {
     <header
       className={cn(
         'fixed top-0 left-0 right-0 z-50 px-4 md:px-6 py-3 transition-all duration-300',
-        scrolled ? 'bg-black/80 backdrop-blur-md border-b border-white/10' : 'bg-transparent'
+        scrolled ? 'bg-[#FF0031]/80 backdrop-blur-md border-b border-black/10' : 'bg-transparent'
       )}
     >
       <div className="max-w-screen-xl mx-auto flex items-center justify-between">
         <Link 
           to="/" 
-          className="text-base font-mono tracking-tighter hover:opacity-80 transition-opacity"
+          className="text-base font-mono tracking-tighter hover:opacity-80 transition-opacity text-black"
         >
-          MEDIA/
+          MEDIA/ &gt; NAMISH//:
         </Link>
         
-        <div className="flex items-center space-x-4">
-          <ToggleGroup type="single" value={view} onValueChange={(value) => value && setView(value)}>
-            <ToggleGroupItem value="grid" aria-label="Grid view" className="border-none">
-              <Grid size={16} />
-            </ToggleGroupItem>
-            <ToggleGroupItem value="list" aria-label="List view" className="border-none">
-              <Menu size={16} />
-            </ToggleGroupItem>
-          </ToggleGroup>
+        <div className="flex items-center space-x-6">
+          <nav className="hidden md:flex items-center space-x-6">
+            <Link 
+              to="/" 
+              className={cn(
+                "text-sm font-mono text-black hover:opacity-80 transition-opacity",
+                location.pathname === "/" && "font-bold"
+              )}
+            >
+              HOME
+            </Link>
+            <Link 
+              to="/about" 
+              className={cn(
+                "text-sm font-mono text-black hover:opacity-80 transition-opacity",
+                location.pathname === "/about" && "font-bold"
+              )}
+            >
+              ABOUT
+            </Link>
+            <Link 
+              to="/work" 
+              className={cn(
+                "text-sm font-mono text-black hover:opacity-80 transition-opacity",
+                location.pathname === "/work" && "font-bold"
+              )}
+            >
+              WORK
+            </Link>
+          </nav>
           
-          <button className="p-1 hover:text-gray-400 transition-colors">
+          <button className="p-1 hover:text-gray-800 transition-colors text-black">
             <Search size={16} />
           </button>
         </div>
