@@ -10,17 +10,17 @@ interface TransitionEffectProps {
 const TransitionEffect = ({ children }: TransitionEffectProps) => {
   const location = useLocation();
   const [displayLocation, setDisplayLocation] = useState(location);
-  const [transitionStage, setTransitionStage] = useState('fadeIn');
+  const [transitionStage, setTransitionStage] = useState('slideIn');
 
   useEffect(() => {
     if (location !== displayLocation) {
-      setTransitionStage('fadeOut');
+      setTransitionStage('slideOut');
     }
   }, [location, displayLocation]);
 
   const handleAnimationEnd = () => {
-    if (transitionStage === 'fadeOut') {
-      setTransitionStage('fadeIn');
+    if (transitionStage === 'slideOut') {
+      setTransitionStage('slideIn');
       setDisplayLocation(location);
     }
   };
@@ -29,7 +29,7 @@ const TransitionEffect = ({ children }: TransitionEffectProps) => {
     <div
       className={cn(
         'transition-all duration-500 ease-in-out min-h-screen',
-        transitionStage === 'fadeIn' ? 'animate-fade-in' : 'animate-fade-out'
+        transitionStage === 'slideIn' ? 'animate-slide-in-right' : 'animate-slide-out-right'
       )}
       onAnimationEnd={handleAnimationEnd}
     >

@@ -6,10 +6,10 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import TransitionEffect from "./components/TransitionEffect";
 import Home from "./pages/Home";
-import Index from "./pages/Index";
 import About from "./pages/About";
 import Work from "./pages/Work";
 import NotFound from "./pages/NotFound";
+import Index from "./pages/Index";
 
 const queryClient = new QueryClient();
 
