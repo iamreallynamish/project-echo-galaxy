@@ -5,6 +5,8 @@ import Footer from '@/components/Footer';
 import { projects } from '@/data/projects';
 import { Button } from "@/components/ui/button";
 import { useState } from 'react';
+import TypingAnimation from '@/components/TypingAnimation';
+import { cn } from '@/lib/utils';
 
 const SinglePageLayout = () => {
   const [loaded, setLoaded] = useState(false);
@@ -42,10 +44,10 @@ const SinglePageLayout = () => {
         <div className="container mx-auto px-4 md:px-6 py-12 flex flex-col items-center justify-center text-center">
           <div className={`space-y-8 max-w-2xl ${loaded ? 'animate-fade-in' : 'opacity-0'}`}>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-mono tracking-tight mb-8">
-              NAMISH//:
+              <TypingAnimation text="NAMISH//:" />
             </h1>
             
-            <p className="text-sm md:text-base text-black/80 leading-relaxed">
+            <p className="text-sm md:text-base text-white/80 leading-relaxed">
               At just 16, I've worked with some of YouTube India's top creators, crafting high-impact visuals that boost engagement. From thumbnails to banners, I blend creativity with strategy to make content pop. Now freelancing, I help brands and creators level up their visuals with sleek, scroll-stopping designs.
             </p>
           </div>
@@ -82,7 +84,7 @@ const SinglePageLayout = () => {
               </p>
             </div>
             
-            <div className="border-t border-black/10 pt-8">
+            <div className="border-t border-white/10 pt-8">
               <h2 className="text-sm font-mono mb-4">CONTACT</h2>
               <p className="text-sm">
                 For collaborations or inquiries:<br />
@@ -110,7 +112,7 @@ const SinglePageLayout = () => {
                 <Button 
                   onClick={() => setViewMode(prev => prev === 'grid' ? 'list' : 'grid')} 
                   variant="outline" 
-                  className="text-black border-black hover:bg-black/10"
+                  className="text-white border-white hover:bg-white/10"
                 >
                   {viewMode === 'grid' ? 'LIST VIEW' : 'GRID VIEW'}
                 </Button>
@@ -119,8 +121,15 @@ const SinglePageLayout = () => {
             
             {viewMode === 'grid' ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {(showAllProjects ? allProjects : initialProjects).map((project) => (
-                  <div key={project.id} className="group cursor-pointer hover-lift">
+                {(showAllProjects ? allProjects : initialProjects).map((project, index) => (
+                  <div 
+                    key={project.id} 
+                    className={cn(
+                      "group cursor-pointer hover-lift opacity-0",
+                      loaded && "animate-fade-in"
+                    )}
+                    style={{ animationDelay: `${index * 0.1}s` }}
+                  >
                     <div className="aspect-square overflow-hidden">
                       <img 
                         src={project.thumbnail} 
@@ -131,19 +140,23 @@ const SinglePageLayout = () => {
                     <div className="mt-3">
                       <div className="flex justify-between items-center">
                         <h3 className="text-sm font-mono">{project.title}</h3>
-                        <span className="text-xs text-black/70">{project.date}</span>
+                        <span className="text-xs text-white/70">{project.date}</span>
                       </div>
-                      <p className="text-xs mt-1 text-black/70">{project.description}</p>
+                      <p className="text-xs mt-1 text-white/70">{project.description}</p>
                     </div>
                   </div>
                 ))}
               </div>
             ) : (
               <div className="space-y-4">
-                {allProjects.map((project) => (
+                {allProjects.map((project, index) => (
                   <div 
                     key={project.id} 
-                    className="flex gap-4 items-center p-3 hover:bg-black/5 transition-colors rounded-md"
+                    className={cn(
+                      "flex gap-4 items-center p-3 hover:bg-white/5 transition-colors rounded-md opacity-0",
+                      loaded && "animate-fade-in"
+                    )}
+                    style={{ animationDelay: `${index * 0.1}s` }}
                   >
                     <div className="aspect-square w-16 h-16 overflow-hidden">
                       <img 
@@ -155,9 +168,9 @@ const SinglePageLayout = () => {
                     <div className="flex-1">
                       <div className="flex justify-between items-center">
                         <h3 className="text-sm font-mono">{project.title}</h3>
-                        <span className="text-xs text-black/70">{project.date}</span>
+                        <span className="text-xs text-white/70">{project.date}</span>
                       </div>
-                      <p className="text-xs mt-1 text-black/70">{project.description}</p>
+                      <p className="text-xs mt-1 text-white/70">{project.description}</p>
                     </div>
                   </div>
                 ))}
@@ -168,7 +181,7 @@ const SinglePageLayout = () => {
               <div className="flex justify-center mt-8">
                 <Button 
                   onClick={handleViewMore} 
-                  className="bg-black text-white hover:bg-black/80"
+                  className="bg-white text-black hover:bg-white/80"
                 >
                   VIEW MORE
                 </Button>

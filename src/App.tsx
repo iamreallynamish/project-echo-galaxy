@@ -12,7 +12,7 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <div className="bg-[#FF0031] text-black min-h-screen font-mono">
+      <div className="bg-black text-white min-h-screen font-mono">
         <SinglePageLayout />
       </div>
     </TooltipProvider>

@@ -1,7 +1,8 @@
 
 import { useState, useEffect, RefObject } from 'react';
 import { cn } from '@/lib/utils';
-import { Search } from 'lucide-react';
+import { Search, X } from 'lucide-react';
+import { Input } from '@/components/ui/input';
 
 interface NavbarProps {
   homeRef: RefObject<HTMLDivElement>;
@@ -12,6 +13,7 @@ interface NavbarProps {
 const Navbar = ({ homeRef, aboutRef, workRef }: NavbarProps) => {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
+  const [searchMode, setSearchMode] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -42,55 +44,81 @@ const Navbar = ({ homeRef, aboutRef, workRef }: NavbarProps) => {
     }
   };
 
+  const toggleSearchMode = () => {
+    setSearchMode(!searchMode);
+  };
+
   return (
     <header
       className={cn(
         'fixed top-0 left-0 right-0 z-50 px-4 md:px-6 py-3 transition-all duration-300',
-        scrolled ? 'bg-[#FF0031]/80 backdrop-blur-md border-b border-black/10' : 'bg-transparent'
+        scrolled ? 'bg-black/80 backdrop-blur-md border-b border-white/10' : 'bg-transparent'
       )}
     >
       <div className="max-w-screen-xl mx-auto flex items-center justify-between">
         <button 
           onClick={() => scrollToSection(homeRef)} 
-          className="text-base font-mono tracking-tighter hover:opacity-80 transition-opacity text-black"
+          className="text-base font-mono tracking-tighter hover:opacity-80 transition-opacity text-white"
         >
           NAMISH//:
         </button>
         
         <div className="flex items-center space-x-6">
-          <nav className="hidden md:flex items-center space-x-6">
-            <button 
-              onClick={() => scrollToSection(homeRef)} 
-              className={cn(
-                "text-sm font-mono text-black hover:opacity-80 transition-opacity",
-                activeSection === "home" && "font-bold"
-              )}
-            >
-              HOME
-            </button>
-            <button 
-              onClick={() => scrollToSection(aboutRef)} 
-              className={cn(
-                "text-sm font-mono text-black hover:opacity-80 transition-opacity",
-                activeSection === "about" && "font-bold"
-              )}
-            >
-              ABOUT
-            </button>
-            <button 
-              onClick={() => scrollToSection(workRef)} 
-              className={cn(
-                "text-sm font-mono text-black hover:opacity-80 transition-opacity",
-                activeSection === "work" && "font-bold"
-              )}
-            >
-              WORK
-            </button>
-          </nav>
-          
-          <button className="p-1 hover:text-gray-800 transition-colors text-black">
-            <Search size={16} />
-          </button>
+          {searchMode ? (
+            <div className="flex items-center space-x-2 animate-fade-in">
+              <Input 
+                type="text" 
+                placeholder="Search..." 
+                className="w-48 md:w-64 h-8 bg-transparent border-white/20 text-white placeholder:text-white/50 focus:border-white"
+                autoFocus
+              />
+              <button 
+                onClick={toggleSearchMode} 
+                className="p-1 hover:text-gray-300 transition-colors text-white"
+              >
+                <X size={16} />
+              </button>
+            </div>
+          ) : (
+            <>
+              <nav className="hidden md:flex items-center space-x-6">
+                <button 
+                  onClick={() => scrollToSection(homeRef)} 
+                  className={cn(
+                    "text-sm font-mono text-white hover:opacity-80 transition-opacity",
+                    activeSection === "home" && "font-bold"
+                  )}
+                >
+                  HOME
+                </button>
+                <button 
+                  onClick={() => scrollToSection(aboutRef)} 
+                  className={cn(
+                    "text-sm font-mono text-white hover:opacity-80 transition-opacity",
+                    activeSection === "about" && "font-bold"
+                  )}
+                >
+                  ABOUT
+                </button>
+                <button 
+                  onClick={() => scrollToSection(workRef)} 
+                  className={cn(
+                    "text-sm font-mono text-white hover:opacity-80 transition-opacity",
+                    activeSection === "work" && "font-bold"
+                  )}
+                >
+                  WORK
+                </button>
+              </nav>
+              
+              <button 
+                onClick={toggleSearchMode} 
+                className="p-1 hover:text-gray-300 transition-colors text-white"
+              >
+                <Search size={16} />
+              </button>
+            </>
+          )}
         </div>
       </div>
     </header>
