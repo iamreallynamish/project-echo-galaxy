@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import SinglePageLayout from "./components/SinglePageLayout";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ProjectDetail from "./pages/ProjectDetail";
+import BackgroundAnimation from "./components/BackgroundAnimation";
 
 const queryClient = new QueryClient();
 
@@ -16,6 +17,7 @@ const App = () => (
         <Toaster />
         <Sonner />
         <div className="bg-black text-white min-h-screen font-mono">
+          <BackgroundAnimation />
           <Routes>
             <Route path="/" element={<SinglePageLayout />} />
             <Route path="/project/:id" element={<ProjectDetail />} />

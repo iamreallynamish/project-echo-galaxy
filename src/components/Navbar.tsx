@@ -106,6 +106,15 @@ const Navbar = ({ homeRef, aboutRef, workRef }: NavbarProps) => {
                   >
                     ABOUT
                   </button>
+                  <button 
+                    onClick={() => scrollToSection(workRef)} 
+                    className={cn(
+                      "text-sm font-mono text-white hover:opacity-80 transition-opacity",
+                      !scrolled && activeSection === "work" && "font-bold"
+                    )}
+                  >
+                    PROJECTS
+                  </button>
                 </nav>
               )}
               

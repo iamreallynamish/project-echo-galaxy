@@ -18,7 +18,7 @@ const ProjectDetail = () => {
   // Get more projects (excluding current one)
   const moreProjects = projects.filter(p => p.id !== id).slice(0, 3);
   
-  // Create dummy refs for the Navbar component
+  // Create refs for Navbar component
   const homeRef = useRef<HTMLDivElement>(null);
   const aboutRef = useRef<HTMLDivElement>(null);
   const workRef = useRef<HTMLDivElement>(null);
@@ -71,7 +71,7 @@ const ProjectDetail = () => {
             {/* Left Side - Image Gallery (Larger Images) */}
             <div className="space-y-4">
               {/* Main Image (Larger) */}
-              <div className="aspect-video bg-black overflow-hidden">
+              <div className="aspect-auto bg-black overflow-hidden max-h-[70vh]">
                 <img 
                   src={selectedImage} 
                   alt={project.title}
