@@ -96,17 +96,13 @@ const SinglePageLayout = () => {
         </div>
       </section>
       
-      {/* Work Section */}
-      <section 
-        ref={workRef} 
-        id="work" 
-        className="flex-1 flex flex-col min-h-screen pt-20"
-      >
+      {/* Projects Grid Section */}
+      <section className="flex-1 flex flex-col min-h-screen pt-20 pb-20">
         <div className="container mx-auto px-4 md:px-6 py-12">
           <div className={`space-y-8 ${loaded ? 'animate-fade-in' : 'opacity-0'}`}>
             <div className="flex justify-between items-center">
               <h1 className="font-mono tracking-tight" style={{ fontSize: "18px" }}>
-                WORK//:
+                PROJECTS//:
               </h1>
               
               {showAllProjects && (

@@ -3,6 +3,7 @@ import { useState, useEffect, RefObject } from 'react';
 import { cn } from '@/lib/utils';
 import { Search, X } from 'lucide-react';
 import { Input } from '@/components/ui/input';
+import { Link, useLocation } from 'react-router-dom';
 
 interface NavbarProps {
   homeRef: RefObject<HTMLDivElement>;
@@ -14,10 +15,14 @@ const Navbar = ({ homeRef, aboutRef, workRef }: NavbarProps) => {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [searchMode, setSearchMode] = useState(false);
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
+      
+      if (!isHomePage) return;
       
       // Determine active section based on scroll position
       const scrollPosition = window.scrollY + 100; // Offset for better detection
@@ -33,10 +38,10 @@ const Navbar = ({ homeRef, aboutRef, workRef }: NavbarProps) => {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [aboutRef, homeRef, workRef]);
+  }, [aboutRef, homeRef, workRef, isHomePage]);
 
   const scrollToSection = (ref: RefObject<HTMLDivElement>) => {
-    if (ref.current) {
+    if (isHomePage && ref.current) {
       ref.current.scrollIntoView({
         behavior: 'smooth',
         block: 'start',
@@ -56,12 +61,12 @@ const Navbar = ({ homeRef, aboutRef, workRef }: NavbarProps) => {
       )}
     >
       <div className="max-w-screen-xl mx-auto flex items-center justify-between">
-        <button 
-          onClick={() => scrollToSection(homeRef)} 
+        <Link 
+          to="/" 
           className="text-base font-mono tracking-tighter hover:opacity-80 transition-opacity text-white"
         >
           NAMISH//:
-        </button>
+        </Link>
         
         <div className="flex items-center space-x-6">
           {searchMode ? (
@@ -81,35 +86,28 @@ const Navbar = ({ homeRef, aboutRef, workRef }: NavbarProps) => {
             </div>
           ) : (
             <>
-              <nav className="hidden md:flex items-center space-x-6">
-                <button 
-                  onClick={() => scrollToSection(homeRef)} 
-                  className={cn(
-                    "text-sm font-mono text-white hover:opacity-80 transition-opacity",
-                    activeSection === "home" && "font-bold"
-                  )}
-                >
-                  HOME
-                </button>
-                <button 
-                  onClick={() => scrollToSection(aboutRef)} 
-                  className={cn(
-                    "text-sm font-mono text-white hover:opacity-80 transition-opacity",
-                    activeSection === "about" && "font-bold"
-                  )}
-                >
-                  ABOUT
-                </button>
-                <button 
-                  onClick={() => scrollToSection(workRef)} 
-                  className={cn(
-                    "text-sm font-mono text-white hover:opacity-80 transition-opacity",
-                    activeSection === "work" && "font-bold"
-                  )}
-                >
-                  WORK
-                </button>
-              </nav>
+              {isHomePage && (
+                <nav className="hidden md:flex items-center space-x-6">
+                  <button 
+                    onClick={() => scrollToSection(homeRef)} 
+                    className={cn(
+                      "text-sm font-mono text-white hover:opacity-80 transition-opacity",
+                      activeSection === "home" && "font-bold"
+                    )}
+                  >
+                    HOME
+                  </button>
+                  <button 
+                    onClick={() => scrollToSection(aboutRef)} 
+                    className={cn(
+                      "text-sm font-mono text-white hover:opacity-80 transition-opacity",
+                      activeSection === "about" && "font-bold"
+                    )}
+                  >
+                    ABOUT
+                  </button>
+                </nav>
+              )}
               
               <button 
                 onClick={toggleSearchMode} 
