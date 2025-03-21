@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { useState } from 'react';
 import TypingAnimation from '@/components/TypingAnimation';
 import { cn } from '@/lib/utils';
+import { Link } from 'react-router-dom';
 
 const SinglePageLayout = () => {
   const [loaded, setLoaded] = useState(false);
@@ -44,7 +45,7 @@ const SinglePageLayout = () => {
         <div className="container mx-auto px-4 md:px-6 py-12 flex flex-col items-center justify-center text-center">
           <div className={`space-y-8 max-w-2xl ${loaded ? 'animate-fade-in' : 'opacity-0'}`}>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-mono tracking-tight mb-8">
-              <TypingAnimation text="NAMISH//:" />
+              <TypingAnimation text="NAMISH//:" colorChange={true} />
             </h1>
             
             <p className="text-sm md:text-base text-white/80 leading-relaxed">
@@ -122,7 +123,8 @@ const SinglePageLayout = () => {
             {viewMode === 'grid' ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {(showAllProjects ? allProjects : initialProjects).map((project, index) => (
-                  <div 
+                  <Link 
+                    to={`/project/${project.id}`} 
                     key={project.id} 
                     className={cn(
                       "group cursor-pointer hover-lift opacity-0",
@@ -144,13 +146,14 @@ const SinglePageLayout = () => {
                       </div>
                       <p className="text-xs mt-1 text-white/70">{project.description}</p>
                     </div>
-                  </div>
+                  </Link>
                 ))}
               </div>
             ) : (
               <div className="space-y-4">
                 {allProjects.map((project, index) => (
-                  <div 
+                  <Link 
+                    to={`/project/${project.id}`} 
                     key={project.id} 
                     className={cn(
                       "flex gap-4 items-center p-3 hover:bg-white/5 transition-colors rounded-md opacity-0",
@@ -172,7 +175,7 @@ const SinglePageLayout = () => {
                       </div>
                       <p className="text-xs mt-1 text-white/70">{project.description}</p>
                     </div>
-                  </div>
+                  </Link>
                 ))}
               </div>
             )}

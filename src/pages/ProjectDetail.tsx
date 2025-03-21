@@ -1,5 +1,5 @@
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import Navbar from '@/components/Navbar';
@@ -10,6 +10,11 @@ const ProjectDetail = () => {
   const { id } = useParams<{ id: string }>();
   const [loaded, setLoaded] = useState(false);
   const project = projects.find(p => p.id === id);
+  
+  // Create dummy refs for the Navbar component
+  const homeRef = useRef<HTMLDivElement>(null);
+  const aboutRef = useRef<HTMLDivElement>(null);
+  const workRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setLoaded(true);
@@ -22,10 +27,10 @@ const ProjectDetail = () => {
         <h1 className="text-3xl font-bold mb-6">Project Not Found</h1>
         <p className="mb-8 text-center">The project you're looking for doesn't exist or has been removed.</p>
         <Link 
-          to="/projects" 
+          to="/" 
           className="flex items-center gap-2 text-sm border border-white px-4 py-2"
         >
-          <ArrowLeft size={16} /> Back to Projects
+          <ArrowLeft size={16} /> Back to Home
         </Link>
       </div>
     );
@@ -33,7 +38,7 @@ const ProjectDetail = () => {
 
   return (
     <div className="flex flex-col min-h-screen bg-black text-white">
-      <Navbar />
+      <Navbar homeRef={homeRef} aboutRef={aboutRef} workRef={workRef} />
       
       <main className="flex-1 pt-32 pb-24">
         {/* Project Header */}
@@ -98,10 +103,10 @@ const ProjectDetail = () => {
               
               <div className="mt-12">
                 <Link 
-                  to="/projects" 
+                  to="/" 
                   className="inline-flex items-center gap-2 text-sm hover:gap-3 transition-all"
                 >
-                  <ArrowLeft size={16} /> Back to Projects
+                  <ArrowLeft size={16} /> Back to Home
                 </Link>
               </div>
             </div>
