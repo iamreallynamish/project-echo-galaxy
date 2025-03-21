@@ -1,11 +1,12 @@
 
 import { useEffect, useState, useRef } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Camera, Smartphone, Tag, Calendar, Info } from 'lucide-react';
+import { ArrowLeft, Tag, Calendar, Info, Smartphone } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { projects } from '@/data/projects';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { cn } from '@/lib/utils';
 
 const ProjectDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -13,6 +14,9 @@ const ProjectDetail = () => {
   const project = projects.find(p => p.id === id);
   const [selectedImage, setSelectedImage] = useState<string>('');
   const navigate = useNavigate();
+  
+  // Get more projects (excluding current one)
+  const moreProjects = projects.filter(p => p.id !== id).slice(0, 3);
   
   // Create dummy refs for the Navbar component
   const homeRef = useRef<HTMLDivElement>(null);
@@ -64,10 +68,10 @@ const ProjectDetail = () => {
           </button>
           
           <div className={`grid grid-cols-1 lg:grid-cols-2 gap-8 ${loaded ? 'animate-fade-in' : 'opacity-0'}`}>
-            {/* Left Side - Image Gallery */}
+            {/* Left Side - Image Gallery (Larger Images) */}
             <div className="space-y-4">
-              {/* Main Image */}
-              <div className="aspect-[4/3] bg-black overflow-hidden">
+              {/* Main Image (Larger) */}
+              <div className="aspect-video bg-black overflow-hidden">
                 <img 
                   src={selectedImage} 
                   alt={project.title}
@@ -76,13 +80,13 @@ const ProjectDetail = () => {
               </div>
               
               {/* Thumbnail Gallery */}
-              <ScrollArea className="h-20 w-full">
+              <ScrollArea className="h-24 w-full">
                 <div className="flex gap-2 pb-2">
                   {project.images.map((image, index) => (
                     <div 
                       key={index}
                       onClick={() => handleImageClick(image)}
-                      className={`h-16 w-24 flex-shrink-0 cursor-pointer transition-all overflow-hidden ${selectedImage === image ? 'ring-2 ring-white' : 'opacity-70 hover:opacity-100'}`}
+                      className={`h-20 w-32 flex-shrink-0 cursor-pointer transition-all overflow-hidden ${selectedImage === image ? 'ring-2 ring-white' : 'opacity-70 hover:opacity-100'}`}
                     >
                       <img 
                         src={image} 
@@ -118,41 +122,6 @@ const ProjectDetail = () => {
                   <p className="text-sm text-gray-300">{project.software}</p>
                 </div>
                 
-                {/* Camera Data */}
-                {project.camera && (
-                  <div className="space-y-2">
-                    <h2 className="text-sm font-mono uppercase flex items-center gap-2">
-                      <Camera size={14} /> Camera
-                    </h2>
-                    <div className="grid grid-cols-2 gap-y-2 text-xs text-gray-300">
-                      {project.camera.focalLength && (
-                        <>
-                          <div>Focal Length</div>
-                          <div>{project.camera.focalLength}</div>
-                        </>
-                      )}
-                      {project.camera.aperture && (
-                        <>
-                          <div>Aperture</div>
-                          <div>{project.camera.aperture}</div>
-                        </>
-                      )}
-                      {project.camera.shutterSpeed && (
-                        <>
-                          <div>Shutter Speed</div>
-                          <div>{project.camera.shutterSpeed}</div>
-                        </>
-                      )}
-                      {project.camera.iso && (
-                        <>
-                          <div>ISO</div>
-                          <div>{project.camera.iso}</div>
-                        </>
-                      )}
-                    </div>
-                  </div>
-                )}
-                
                 {/* Categories */}
                 <div className="space-y-2">
                   <h2 className="text-sm font-mono uppercase flex items-center gap-2">
@@ -178,6 +147,40 @@ const ProjectDetail = () => {
                   <p className="text-sm text-gray-300">{project.date}</p>
                 </div>
               </div>
+            </div>
+          </div>
+          
+          {/* More Projects Section */}
+          <div className="mt-20 pt-10 border-t border-white/10">
+            <h2 className="text-xl font-mono mb-8">More Projects</h2>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {moreProjects.map((moreProject, index) => (
+                <Link 
+                  to={`/project/${moreProject.id}`} 
+                  key={moreProject.id} 
+                  className={cn(
+                    "group cursor-pointer opacity-0",
+                    loaded && "animate-fade-in"
+                  )}
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
+                  <div className="aspect-square overflow-hidden">
+                    <img 
+                      src={moreProject.thumbnail} 
+                      alt={moreProject.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                  </div>
+                  <div className="mt-3">
+                    <div className="flex justify-between items-center">
+                      <h3 className="text-sm font-mono">{moreProject.title}</h3>
+                      <span className="text-xs text-white/70">#{moreProject.id}</span>
+                    </div>
+                    <p className="text-xs mt-1 text-white/70">{moreProject.description}</p>
+                  </div>
+                </Link>
+              ))}
             </div>
           </div>
         </div>
